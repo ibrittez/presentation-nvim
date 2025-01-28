@@ -57,6 +57,9 @@ end
 local create_window_configurations = function()
 	local width = vim.o.columns
 	local height = vim.o.lines
+	local header_height = 1 + 2 -- 1 + border
+	local footer_height = 1
+	local body_height = height - header_height - footer_height - 2 -- para el propio borde.
 
 	return {
 		background = {
@@ -81,14 +84,22 @@ local create_window_configurations = function()
 		body = {
 			relative = "editor",
 			width = width - 8,
-			height = height - 5,
+			height = body_height,
 			border = { " ", " ", " ", " ", " ", " ", " ", " " },
 			style = "minimal",
 			col = 8,
 			row = 4,
 			zindex = 2,
 		},
-		footer = {},
+		footer = {
+			relative = "editor",
+			width = width,
+			height = footer_height,
+			style = "minimal",
+			col = 0,
+			row = height - 1,
+			zindex = 2,
+		},
 	}
 end
 
